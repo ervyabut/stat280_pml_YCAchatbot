@@ -11,19 +11,19 @@ if "start_chat" not in st.session_state:
 if "thread_id" not in st.session_state:
     st.session_state.thread_id = None
 
-st.set_page_config(page_title="Chat with YCA", page_icon=":automobile:")
+st.set_page_config(page_title="Chat with YCA", page_icon=":car:")
 
 openai.api_key = 'sk-proj-sma6deQt2esC6GH5grQgT3BlbkFJRYQanTx6V5lSRexPjXEN'
 
-if st.sidebar.button("Start Chat"):
+if st.button("Start Chat"):
     st.session_state.start_chat = True
     thread = client.beta.threads.create()
     st.session_state.thread_id = thread.id
 
-st.title("Toyota Yaris Cross Assistant (YCA)")
-st.write("Hi, my name is YCA. I'm here to help you with your Toyota Yaris Cross.")
+st.title("🚗 Toyota YCA (Your Car Assistant)")
+st.write("Hi, I'm YCA :) I'm here to help you with your Toyota Yaris Cross.")
 
-if st.button("Exit Chat"):
+if st.sidebar.button("Exit Chat"):
     st.session_state.messages = []  # Clear the chat history
     st.session_state.start_chat = False  # Reset the chat state
     st.session_state.thread_id = None
@@ -52,7 +52,7 @@ if st.session_state.start_chat:
         run = client.beta.threads.runs.create(
             thread_id=st.session_state.thread_id,
             assistant_id=assistant_id,
-            instructions="I'm limited to answering questions about Toyota Yaris Cross. Please limit your questions about about this car model."
+            instructions="I'm still studying about other car models. I can only answer questions about Toyota Yaris Cross for now. Please limit your questions about about this car model."
         )
 
         while run.status != 'completed':
