@@ -2,7 +2,7 @@ import openai
 import streamlit as st
 import time
 
-assistant_id = 'asst_B8yiJaIV7c50Lrhjk5SRKGkn' # Created this Assistant in OpenAI Playground
+assistant_id = '' # Where the Assistant ID was entered. This Assistant was created in OpenAI Playground.
 openai.api_key = '' # Where the API key with license to GPT 3.5-Turbo was entered
 
 client = openai
