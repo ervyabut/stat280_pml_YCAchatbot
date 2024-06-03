@@ -2,7 +2,8 @@ import openai
 import streamlit as st
 import time
 
-assistant_id = 'asst_B8yiJaIV7c50Lrhjk5SRKGkn'
+assistant_id = 'asst_B8yiJaIV7c50Lrhjk5SRKGkn' # Created this Assistant in OpenAI Playground
+openai.api_key = '' # Where the API key with license to GPT 3.5-Turbo was entered
 
 client = openai
 
@@ -13,8 +14,6 @@ if "thread_id" not in st.session_state:
 
 st.set_page_config(page_title="Chat with YCA", page_icon=":car:")
 
-openai.api_key = 'sk-proj-sma6deQt2esC6GH5grQgT3BlbkFJRYQanTx6V5lSRexPjXEN'
-
 if st.button("Start Chat"):
     st.session_state.start_chat = True
     thread = client.beta.threads.create()
@@ -24,13 +23,13 @@ st.title("🚗 Toyota YCA (Your Car Assistant)")
 st.write("Hi, I'm YCA :) I'm here to help you with your Toyota Yaris Cross.")
 
 if st.sidebar.button("Exit Chat"):
-    st.session_state.messages = []  # Clear the chat history
-    st.session_state.start_chat = False  # Reset the chat state
+    st.session_state.messages = []
+    st.session_state.start_chat = False
     st.session_state.thread_id = None
 
 if st.session_state.start_chat:
     if "openai_model" not in st.session_state:
-        st.session_state.openai_model = "gpt-3.5-turbo"
+        st.session_state.openai_model = "gpt-3.5-turbo" # Use GPT 3.5-Turbo given API Key subscription
     if "messages" not in st.session_state:
         st.session_state.messages = []
     
@@ -53,7 +52,6 @@ if st.session_state.start_chat:
             thread_id=st.session_state.thread_id,
             assistant_id=assistant_id,
             instructions="You are the embodiment of the Toyota Yaris Cross Manual. The only information you know comes from this manual. Your responses can only come from information in the manual. You cannot say anything unless it is explicitly stated in the manual. If you know the answer to a question but it isn't written in the manual, say 'I'm sorry but I can only answer based on the Yaris Cross manual. Please limit your questions related to this.' Whenever you respond with a file search, indicate the page number of the reference."
-            #"I'm still studying about other car models. I can only answer questions about Toyota Yaris Cross for now. Please limit your questions about about this car model.'
         )
 
         while run.status != 'completed':
@@ -79,4 +77,7 @@ if st.session_state.start_chat:
 else:
     st.write("Click 'Start Chat' to begin.")
 
-#Source: https://github.com/hitchon1/AssistantAPI_Streamlit
+# References
+# OpenAI Assistants API: https://platform.openai.com/docs/assistants/overview
+# Using OpenAI Assistant API with Streamlit: https://github.com/hitchon1/AssistantAPI_Streamlit
+# Deploying Streamlit App to Streamlit Cloud: https://www.youtube.com/watch?v=HKoOBiAaHGg&t=564s
